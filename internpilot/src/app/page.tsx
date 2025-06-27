@@ -105,11 +105,6 @@ export default function Home() {
       const data = await response.json();
       const parsedFeedback = parseFeedback(data.feedback);
       setFeedback(parsedFeedback);
-      
-      // Show note if using mock feedback
-      if (data.note) {
-        alert(data.note);
-      }
     } catch (error) {
       console.error('Error processing file:', error);
       const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred';
@@ -243,25 +238,12 @@ export default function Home() {
                 <p className="text-sm text-gray-500">Upload your resume to get personalized feedback for CS internships</p>
               </div>
             ) : (
-              <div className="space-y-4">
-                {feedback.map((item) => (
-                  <div key={item.id} className="outline outline-neutral-800 rounded-lg p-6">
-                    <div className="mb-4">
-                      <h3 className="text-lg font-medium text-blue-400 mb-2">💡 {item.suggestion}</h3>
-                      <div className="space-y-2">
-                        <div>
-                          <span className="text-sm font-medium text-gray-300">Impact:</span>
-                          <p className="text-sm text-gray-400 ml-2">{item.impact}</p>
-                        </div>
-                        <div>
-                          <span className="text-sm font-medium text-gray-300">Action:</span>
-                          <p className="text-sm text-gray-400 ml-2">{item.action}</p>
-                        </div>
-                      </div>
-                    </div>
-                    <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded text-sm transition-colors">
-                      Apply This Feedback
-                    </button>
+              <div className="space-y-6">
+                {feedback.map((item, index) => (
+                  <div key={item.id} className="border-l-4 border-blue-600 pl-4">
+                    <h3 className="text-lg font-medium mb-2">{index + 1}. {item.suggestion}</h3>
+                    <p className="text-sm text-gray-400 mb-1"><strong>Impact:</strong> {item.impact}</p>
+                    <p className="text-sm text-gray-400"><strong>Action:</strong> {item.action}</p>
                   </div>
                 ))}
               </div>
